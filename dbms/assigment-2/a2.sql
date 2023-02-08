@@ -3,7 +3,7 @@ CREATE TABLE Emp (
 	Ename varchar(20),
 	Job varchar(20),
 	Mgr int(4),
-	Hiredata date,
+	Hiredate date,
 	Sal decimal(10,2),
 	Comm decimal(8,2),
 	Deptno int(2)
@@ -34,7 +34,7 @@ ALTER TABLE Emp ADD PRIMARY KEY (Empno);
 
 -- ALTER TABLE Emp ALTER Hiredata SET DEFAULT '1-JAN-1990';
 -- as per maam see below
-alter table Emp modify Hiredata default sysdate;
+alter table Emp modify Hiredate default sysdate;
 
 ALTER TABLE Emp ADD CONSTRAINT CHK_Sal CHECK (Sal>=5000);
 
@@ -67,7 +67,7 @@ SELECT Ename || '(' || Job || ')' FROM Emp;
 
 -- 7.
 SELECT Ename,
-       to_char(Hiredata,'MONTH DD,YYYY')
+       to_char(Hiredate,'MONTH DD,YYYY')
 FROM Emp;
 
 -- 8.
