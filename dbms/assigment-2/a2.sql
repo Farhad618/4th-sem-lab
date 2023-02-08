@@ -32,7 +32,9 @@ INSERT INTO Dept VALUES (40, 'ADMINISTRATION', 'WASHINGTON');
 
 ALTER TABLE Emp ADD PRIMARY KEY (Empno);
 
-ALTER TABLE Emp ALTER Hiredata SET DEFAULT '1-JAN-1990';
+-- ALTER TABLE Emp ALTER Hiredata SET DEFAULT '1-JAN-1990';
+-- as per maam see below
+alter table Emp modify Hiredata default sysdate;
 
 ALTER TABLE Emp ADD CONSTRAINT CHK_Sal CHECK (Sal>=5000);
 
@@ -54,9 +56,10 @@ SELECT Sal FROM Emp;
 SELECT DISTINCT Job FROM Emp;
 
 -- 4.
+select Ename, Sal + Sal * 0.5 as NewSal from Emp;
 
 -- 5.
-SELECT Ename || ' ' || Job AS "Employee & Job"
+SELECT Ename || ' ' || Job AS "Employee and Job"
 FROM Emp;
 
 -- 6.
@@ -78,7 +81,7 @@ SELECT Empno, Sal, Comm FROM Emp;
 SELECT DISTINCT Deptno, Job FROM Emp;
 
 ------------------------------------------------------------------
-
+-- following codes are not needed
 
 CREATE TABLE Emp (
 	Empno int(4),
