@@ -78,9 +78,19 @@ SELECT Sailors.sname FROM Reserves, Sailors WHERE Reserves.sid = Sailors.sid;
 SELECT sname, age FROM Sailors WHERE sname like 'b%y';
 ------------------------- UNION, INTERSECT, MINUS
 -- 9. Find the names of sailors who have reserved a red or a green boat
+SELECT Sailors.sname FROM Boats, Reserves, Sailors WHERE Reserves.bid = Boats.bid AND Boats.color = 'red' AND Reserves.sid = Sailors.sid
+union all
+SELECT Sailors.sname FROM Boats, Reserves, Sailors WHERE Reserves.bid = Boats.bid AND Boats.color = 'green' AND Reserves.sid = Sailors.sid;
 -- 10. Find the names of sailors who have reserved both a red and a green boat
+SELECT Sailors.sname FROM Boats, Reserves, Sailors WHERE Reserves.bid = Boats.bid AND Boats.color = 'red' AND Reserves.sid = Sailors.sid
+intersect
+SELECT Sailors.sname FROM Boats, Reserves, Sailors WHERE Reserves.bid = Boats.bid AND Boats.color = 'green' AND Reserves.sid = Sailors.sid;
 -- 11. Find the sid’s of all sailors who have reserved red boats but not green boats
+SELECT Sailors.sid FROM Boats, Reserves, Sailors WHERE Reserves.bid = Boats.bid AND Boats.color = 'red' AND Reserves.sid = Sailors.sid;
 -- 12. Find all sid’s of sailors who have a rating of 10 or reserved boat 104
+SELECT sid FROM Sailors WHERE rating = 10
+union
+SELECT Sailors.sid FROM Boats, Reserves, Sailors WHERE Reserves.bid = 104 AND Reserves.sid = Sailors.sid;
 --------------------------- NESTED QUERIES: ------------------------------------------
 -- 13. Find the names of sailors who have reserved boat 103
 -- 14. Find the names of sailors who have reserved a red boat
