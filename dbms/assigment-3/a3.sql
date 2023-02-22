@@ -98,6 +98,7 @@ select sname from Sailors where sid in (select sid from Reserves where bid = 103
 select sname from Sailors where sid in (select sid from Reserves where bid in (select bid from Boats where color = 'red'));
 ------------------------ CORRELATED NESTED QUERIES:
 -- 15. Find the names of sailors who have reserved boat number 103
+select sname from Sailors where exists (select sid from Reserves where Reserves.sid = Sailors.sid and bid = 103);
 --------------------------- SET COMPARISON OPERATORS:
 -- 16. Find sailors whose rating is better than some sailor called hari
 -- 17. Find the sailor with the highest rating
