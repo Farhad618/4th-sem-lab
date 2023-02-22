@@ -93,7 +93,9 @@ union
 SELECT Sailors.sid FROM Boats, Reserves, Sailors WHERE Reserves.bid = 104 AND Reserves.sid = Sailors.sid;
 --------------------------- NESTED QUERIES: ------------------------------------------
 -- 13. Find the names of sailors who have reserved boat 103
+select sname from Sailors where sid in (select sid from Reserves where bid = 103);
 -- 14. Find the names of sailors who have reserved a red boat
+select sname from Sailors where sid in (select sid from Reserves where bid in (select bid from Boats where color = 'red'));
 ------------------------ CORRELATED NESTED QUERIES:
 -- 15. Find the names of sailors who have reserved boat number 103
 --------------------------- SET COMPARISON OPERATORS:
