@@ -101,8 +101,13 @@ select sname from Sailors where sid in (select sid from Reserves where bid in (s
 select sname from Sailors where exists (select sid from Reserves where Reserves.sid = Sailors.sid and bid = 103);
 --------------------------- SET COMPARISON OPERATORS:
 -- 16. Find sailors whose rating is better than some sailor called hari
+select * from Sailors where rating > all (select rating from Sailors where sname = 'hari');
 -- 17. Find the sailor with the highest rating
+select * from Sailors where rating >= all (select rating from Sailors);
 -- 18. Find the name of sailors who have reserved both a red and a green boat
+select sname from Sailors where sid = any (
+  (select sid from Reserves where bid = all 
+  	(select bid from Boats where color = 'red' and color = 'green')));
 -- 19. Find the names of sailors who have reserved all boats
 ---------------------------------- AGGREGATE OPERATORS:
 -- 20. Find the average age of sailors with a rating of 10
