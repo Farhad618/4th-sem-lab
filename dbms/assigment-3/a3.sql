@@ -109,14 +109,26 @@ select sname from Sailors where sid = any (
   (select sid from Reserves where bid = all 
   	(select bid from Boats where color = 'red' and color = 'green')));
 -- 19. Find the names of sailors who have reserved all boats
+SELECT sname FROM Sailors WHERE NOT EXISTS (
+    SELECT bid FROM Boats WHERE NOT EXISTS (
+    	SELECT bid FROM Reserves WHERE Reserves.bid = Boats.bid AND Reserves.sid = Sailors.sid ));
 ---------------------------------- AGGREGATE OPERATORS:
 -- 20. Find the average age of sailors with a rating of 10
+SELECT avg(age) FROM Sailors WHERE rating=10;
 -- 21. Find the name and age of the oldest sailor
+SELECT sname, age FROM Sailors where age = (select max(age) from Sailors);
 -- 22. Count the number of sailors
+select count(*) from Sailors;
 -- 23. Count the number of different sailor names
+select count(distinct sname) from Sailors;
 -- 24. Find the names of sailors who are older than the oldest sailor with a rating of 10
+select sname from Sailors where age > (select max(age) from Sailors where rating = 10);
 ---------------------------------------- GROUP BY CLAUSE:
 -- 25. Find the age of the youngest sailor for each rating level
+select rating, min(age) from Sailors group by rating;
 -- 26. Find the age of the youngest sailor who is eligible to vote(i.e., is at least 18 years old) for each rating level with at least two such sailors
+SELECT rating, MIN(age) FROM Sailors WHERE age>18 GROUP BY rating HAVING COUNT(*) > 1;
 -- 27. For each red boat find the number of reservations for this boat
+SELECT Boats.bid, COUNT(*) FROM Boats, Reserves WHERE Reserves.bid = Boats.bid AND Boats.color = 'red' GROUP BY Boats.bid;
 -- 28. Find the average age of sailors for each rating level that has at least two sailors
+SELECT Sailors.rating, AVG(Sailors.age) FROM Sailors GROUP BY Sailors.rating HAVING COUNT(*) > 1;
