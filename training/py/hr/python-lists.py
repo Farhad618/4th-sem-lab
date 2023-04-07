@@ -1,4 +1,4 @@
-if _name_ == '_main_':
+if __name__ == '__main__':
     N = int(input())
     list1 = []
     for lines in range(N):
